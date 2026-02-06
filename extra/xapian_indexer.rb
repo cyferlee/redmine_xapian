@@ -478,7 +478,6 @@ my_log "Trying to load Redmine environment <<#{ENVIRONMENT}>>...", verbose
 begin
   require ENVIRONMENT
   my_log "Redmine environment [RAILS_ENV=#{env}] correctly loaded ...", verbose
-
   # Indexing files
   unless only_repos
     stem_langs.each do |lang|
@@ -497,6 +496,7 @@ begin
       cmd << ' -v' if verbose
       cmd << ' --retry-failed' if retry_failed
       cmd << " -m #{max_size}" if max_size.present?
+      cmd << " --filter=application/vnd.openxmlformats-officedocument.wordprocessingml.document,html:'pandoc -f docx -t html --wrap=none'"
       my_log cmd, verbose
       system_or_raise cmd, verbose
     end
